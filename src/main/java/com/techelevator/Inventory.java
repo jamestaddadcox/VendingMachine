@@ -20,8 +20,13 @@ public class Inventory {
         inventoryMap.put(location, newItem);
     }
 
+
+    public Item getItem(String location) {
+        return inventoryMap.get(location);
+    }
+
     public Map<String, Item> getInventoryMap() {
-        return new LinkedHashMap<>(inventoryMap);
+         return new LinkedHashMap<>(inventoryMap);
     }
 
     public int addMoneyToBalance(int moneyToAdd) {
