@@ -26,7 +26,7 @@ public class Inventory {
     }
 
     public Map<String, Item> getInventoryMap() {
-         return new LinkedHashMap<>(inventoryMap);
+        return new LinkedHashMap<>(inventoryMap);
     }
 
     public int addMoneyToBalance(int moneyToAdd) {
