@@ -34,12 +34,15 @@ public class Inventory {
         return new LinkedHashMap<>(inventoryMap);
     }
 
-    public int addMoneyToBalance(int moneyToAdd) {
+    public boolean addMoneyToBalance(int moneyToAdd) {
+        if (moneyToAdd <= 0) {
+            return false;
+        }
         String previousBalance = NumberFormat.getCurrencyInstance().format(balance);
         balance += moneyToAdd;
         String newBalance = NumberFormat.getCurrencyInstance().format(balance);
         addLogEntry("FEED MONEY: " + previousBalance + " " + newBalance);
-        return balance;
+        return true;
     }
 
     public boolean makePurchase(String location) {
@@ -69,7 +72,7 @@ public class Inventory {
         balance = 0;
         String changeAmount = NumberFormat.getCurrencyInstance().format(Change);
         String newBalance = NumberFormat.getCurrencyInstance().format(balance);
-        addLogEntry("FEED MONEY: " + changeAmount + " " + newBalance);
+        addLogEntry("GIVE CHANGE: " + changeAmount + " " + newBalance);
         return Change;
     }
     private void addLogEntry(String logEntry) {
