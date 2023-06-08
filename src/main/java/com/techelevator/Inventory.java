@@ -20,7 +20,7 @@ public class Inventory {
         inventoryMap.put(location, newItem);
     }
 
-    public Map getInventoryMap() {
+    public Map<String, Item> getInventoryMap() {
         return new LinkedHashMap<>(inventoryMap);
     }
 
