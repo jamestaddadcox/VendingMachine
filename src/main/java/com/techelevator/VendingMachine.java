@@ -7,7 +7,7 @@ public class VendingMachine {
 
 	}
 
-	public void run() {
+	private void run() {
 		// create inventory
 
 		// run menu
