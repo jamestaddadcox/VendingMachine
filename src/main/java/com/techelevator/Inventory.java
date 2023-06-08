@@ -1,14 +1,19 @@
 package com.techelevator;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.NumberFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Inventory {
 
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a"); // create date and time pattern
+
     private int balance;
-
-
-
 
     private Map<String, Item> inventoryMap = new LinkedHashMap<>();         // string is item location
 
@@ -30,19 +35,27 @@ public class Inventory {
     }
 
     public int addMoneyToBalance(int moneyToAdd) {
+        String previousBalance = NumberFormat.getCurrencyInstance().format(balance);
         balance += moneyToAdd;
+        String newBalance = NumberFormat.getCurrencyInstance().format(balance);
+        addLogEntry("FEED MONEY: " + previousBalance + " " + newBalance);
         return balance;
     }
 
     public boolean makePurchase(String location) {
         if (balance < inventoryMap.get(location).getPrice()) {
+            addLogEntry("Transaction Cancelled: Insufficient Balance");
             return false;
         }
         if (inventoryMap.get(location).getQuantity() < 1) {
+            addLogEntry("Transaction Cancelled: Item Sold Out");
             return false;
         }
+            String price = NumberFormat.getCurrencyInstance().format(inventoryMap.get(location).getPrice());
             balance = balance - inventoryMap.get(location).getPrice();
+            String newBalance = NumberFormat.getCurrencyInstance().format(balance);
             inventoryMap.get(location).setQuantity(inventoryMap.get(location).getQuantity() - 1);
+            addLogEntry(inventoryMap.get(location).getName() + " " + location + " " + price + " " + newBalance);
             return true;
 
     }
@@ -54,7 +67,21 @@ public class Inventory {
     public int returnChange() {
         int Change = balance;
         balance = 0;
+        String changeAmount = NumberFormat.getCurrencyInstance().format(Change);
+        String newBalance = NumberFormat.getCurrencyInstance().format(balance);
+        addLogEntry("FEED MONEY: " + changeAmount + " " + newBalance);
         return Change;
+    }
+    private void addLogEntry(String logEntry) {
+        try (
+                FileWriter fileWriter = new FileWriter("Log.txt", true);
+                PrintWriter fileAppender = new PrintWriter(fileWriter);
+                ) {
+            String formattedTime = LocalDateTime.now().format(formatter); // create a string for the current date and time using the pattern
+            fileAppender.println(formattedTime + " " + logEntry);
+        } catch (IOException e) {
+            // do something???
+        }
     }
 
 
