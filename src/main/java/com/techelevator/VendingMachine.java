@@ -2,6 +2,9 @@ package com.techelevator;
 
 public class VendingMachine {
 
+	private UI ui = new UI();
+	private MainMenu mainMenu = new MainMenu();
+
 	private String INVENTORY_FILE_NAME = "vendingmachine.csv";
 	private int MAX_ITEM_AMOUNT = 5;
 
@@ -13,6 +16,9 @@ public class VendingMachine {
 
 	}
 
+
+
+
 	private void run() {
 		InventoryCreator inventoryCreator = new InventoryCreator();
 		Inventory inventory = inventoryCreator.createInventory(INVENTORY_FILE_NAME, MAX_ITEM_AMOUNT);
@@ -23,7 +29,10 @@ public class VendingMachine {
 		System.out.println(inventory.getInventoryMap().get("A1"));
 
 
+
 		// run menu
+		mainMenu.runMainMenu();
+
 	}
 
 }
