@@ -20,6 +20,10 @@ public class Inventory {
         inventoryMap.put(location, newItem);
     }
 
+    public Item getItem(String location) {
+        return inventoryMap.get(location);
+    }
+
     public Map getInventoryMap() {
         return new LinkedHashMap<>(inventoryMap);
     }
