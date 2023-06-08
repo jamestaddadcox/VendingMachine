@@ -23,10 +23,7 @@ public class VendingMachine {
 		InventoryCreator inventoryCreator = new InventoryCreator();
 		Inventory inventory = inventoryCreator.createInventory(INVENTORY_FILE_NAME, MAX_ITEM_AMOUNT);
 
-		System.out.println(inventory.getBalance());
-		inventory.addMoneyToBalance(14);
-		System.out.println(inventory.getBalance());
-		System.out.println(inventory.getInventoryMap().get("A1"));
+
 
 
 

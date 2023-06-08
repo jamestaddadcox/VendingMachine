@@ -24,7 +24,7 @@ public class Inventory {
         return inventoryMap.get(location);
     }
 
-    public Map getInventoryMap() {
+    public Map<String, Item> getInventoryMap() {
         return new LinkedHashMap<>(inventoryMap);
     }
 
