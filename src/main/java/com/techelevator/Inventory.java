@@ -9,8 +9,9 @@ public class Inventory {
 
 
 
-
     private Map<String, Item> inventoryMap = new LinkedHashMap<>();         // string is item location
+
+
 
     public Inventory() {
         balance = 0;
@@ -48,13 +49,15 @@ public class Inventory {
     }
 
     public int getBalance() {
-        return balance;
+        return balance / 100;
     }
 
     public int returnChange() {
         int Change = balance;
         balance = 0;
         return Change;
+
+        //more code in here
     }
 
 
