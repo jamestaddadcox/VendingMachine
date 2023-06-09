@@ -133,6 +133,7 @@ public class UI {
             System.out.println("Your balance of " + priceConverter(inventory.getBalance()) + " will be returned as following: ");
             System.out.println("Quarters: " + quarters + ", Dimes: " + dimes + ", Nickles: " + nickles);
             System.out.println("Thank you for your purchase!");
+            inventory.returnChange();
         }
 
 

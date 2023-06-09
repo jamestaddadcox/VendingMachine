@@ -40,9 +40,11 @@ public class Inventory {
         if (moneyToAdd <= 0) {
             return false;
         }
-        String previousBalance = NumberFormat.getCurrencyInstance().format(balance);
+        //String previousBalance = NumberFormat.getCurrencyInstance().format(balance);
+        String previousBalance = priceConverter(balance);
         balance += moneyToAdd;
-        String newBalance = NumberFormat.getCurrencyInstance().format(balance);
+        //String newBalance = NumberFormat.getCurrencyInstance().format(balance);
+        String newBalance = priceConverter(balance);
         addLogEntry("FEED MONEY: " + previousBalance + " " + newBalance);
         return true;
     }
@@ -56,9 +58,11 @@ public class Inventory {
             addLogEntry("Transaction Cancelled: Item Sold Out");
             return false;
         }
-            String price = NumberFormat.getCurrencyInstance().format(inventoryMap.get(location).getPrice());
+            //String price = NumberFormat.getCurrencyInstance().format(inventoryMap.get(location).getPrice());
+            String price = priceConverter(inventoryMap.get(location).getPrice());
             balance = balance - inventoryMap.get(location).getPrice();
-            String newBalance = NumberFormat.getCurrencyInstance().format(balance);
+            // String newBalance = NumberFormat.getCurrencyInstance().format(balance);
+            String newBalance = priceConverter(balance);
             inventoryMap.get(location).setQuantity(inventoryMap.get(location).getQuantity() - 1);
             addLogEntry(inventoryMap.get(location).getName() + " " + location + " " + price + " " + newBalance);
             return true;
@@ -70,12 +74,14 @@ public class Inventory {
     }
 
     public int returnChange() {
-        int Change = balance;
+        int change = balance;
         balance = 0;
-        String changeAmount = NumberFormat.getCurrencyInstance().format(Change);
-        String newBalance = NumberFormat.getCurrencyInstance().format(balance);
+        //String changeAmount = NumberFormat.getCurrencyInstance().format(Change);
+        //String newBalance = NumberFormat.getCurrencyInstance().format(balance);
+        String changeAmount = priceConverter(change);
+        String newBalance = priceConverter(balance);
         addLogEntry("GIVE CHANGE: " + changeAmount + " " + newBalance);
-        return Change;
+        return change;
 
         //more code in here
     }
@@ -89,6 +95,13 @@ public class Inventory {
         } catch (IOException e) {
             // call something from UI
         }
+
+
+    }
+
+    public String priceConverter ( int price){
+        String formattedAmount = NumberFormat.getCurrencyInstance().format((double) price / 100);
+        return formattedAmount;
     }
 
 
