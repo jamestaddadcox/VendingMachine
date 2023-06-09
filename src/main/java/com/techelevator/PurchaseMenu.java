@@ -27,7 +27,7 @@ public class PurchaseMenu {
                 if (feedMoneyInput.contains(".")) {
                     String moneyAsWhole = feedMoneyInput.replace(".", "");
                     int moneyInput = Integer.parseInt(moneyAsWhole); //converting money as a whole into an integer
-                   inventory.addMoneyToBalance(moneyInput); //adding int money to the current balance
+                    inventory.addMoneyToBalance(moneyInput); //adding int money to the current balance
 
                 } else {
                     int moneyInput = Integer.parseInt(feedMoneyInput);
