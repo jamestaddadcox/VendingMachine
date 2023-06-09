@@ -4,11 +4,12 @@ import java.text.NumberFormat;
 import java.util.Objects;
 
 public class MainMenu {
+    private Inventory inventory;
     private UI ui = new UI();
-    private Inventory inventory = new Inventory();
-    private PurchaseMenu purchaseMenu = new PurchaseMenu(ui, inventory);
+    private PurchaseMenu purchaseMenu = new PurchaseMenu(inventory);
 
-public MainMenu(Inventory inventory){
+
+    public MainMenu(Inventory inventory){
     this.inventory = inventory;
 }
     public void runMainMenu() {
@@ -28,7 +29,7 @@ public MainMenu(Inventory inventory){
                 purchaseMenu.runPurchaseMenu();
             }
 
-        } while (mainMenuInput.equals("1"));
+        } while (!mainMenuInput.equals("3"));
     }
 
 

@@ -17,6 +17,8 @@ public class Inventory {
 
     private Map<String, Item> inventoryMap = new LinkedHashMap<>();         // string is item location
 
+
+
     public Inventory() {
         balance = 0;
     }
@@ -64,7 +66,7 @@ public class Inventory {
     }
 
     public int getBalance() {
-        return balance;
+        return balance / 100;
     }
 
     public int returnChange() {
@@ -74,6 +76,8 @@ public class Inventory {
         String newBalance = NumberFormat.getCurrencyInstance().format(balance);
         addLogEntry("GIVE CHANGE: " + changeAmount + " " + newBalance);
         return Change;
+
+        //more code in here
     }
     private void addLogEntry(String logEntry) {
         try (
