@@ -37,7 +37,7 @@ public class MainMenu {
 
     public String priceConverter(int price) {
 
-        String formattedAmount = NumberFormat.getCurrencyInstance().format((double)price / 100); // format amount as money
+        String formattedAmount = NumberFormat.getCurrencyInstance().format(price); // format amount as money
         return formattedAmount;
         }
 

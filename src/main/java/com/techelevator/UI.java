@@ -100,7 +100,7 @@ public UI(Inventory inventory) {
         }
 
     public String priceConverter(int price) {
-        String formattedAmount = NumberFormat.getCurrencyInstance().format((double) price / 100);
+        String formattedAmount = NumberFormat.getCurrencyInstance().format(price);
         return formattedAmount;
     }
 
