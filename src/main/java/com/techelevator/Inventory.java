@@ -87,7 +87,7 @@ public class Inventory {
             String formattedTime = LocalDateTime.now().format(formatter); // create a string for the current date and time using the pattern
             fileAppender.println(formattedTime + " " + logEntry);
         } catch (IOException e) {
-            // do something???
+            // call something from UI
         }
     }
 

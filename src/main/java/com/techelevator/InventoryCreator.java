@@ -20,7 +20,7 @@ public class InventoryCreator {
                 inventory.putItem(newItem.getLocation(), newItem);
             }
         } catch (FileNotFoundException e) {
-            // do something here
+            // call something from UI
         }
 
         return inventory;

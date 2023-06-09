@@ -156,4 +156,54 @@ public class InventoryTest {
         Assert.assertEquals((formattedTime + " " + expectedLastLine), lastLine);
     }
 
+    @Test
+    public void addMoneyToBalance_writes_to_log_on_success() {  // keep checking this
+        // arrange
+        String expectedLastLine = "FEED MONEY: $0.00 $3.00";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a"); // create date and time pattern
+
+        // act
+        String formattedTime = LocalDateTime.now().format(formatter); // create a string for the current date and time using the pattern
+        sut.addMoneyToBalance(300);
+
+        String lastLine = "";
+        File logFile = new File("Log.txt");
+        try (Scanner fileReader = new Scanner(logFile)) {
+            while (fileReader.hasNextLine()) {
+                lastLine = fileReader.nextLine();
+            }
+        } catch (FileNotFoundException e) {
+            // call for an error message from UI here
+        }
+
+        // assert
+        Assert.assertEquals((formattedTime + " " + expectedLastLine), lastLine);
+    }
+
+    @Test
+    public void returnChange_writes_to_log() {  // keep checking this
+        // arrange
+        sut.addMoneyToBalance(300);
+        String expectedLastLine = "GIVE CHANGE: $3.00 $0.00";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a"); // create date and time pattern
+
+        // act
+        String formattedTime = LocalDateTime.now().format(formatter); // create a string for the current date and time using the pattern
+        sut.returnChange();
+        String lastLine = "";
+        File logFile = new File("Log.txt");
+        try (Scanner fileReader = new Scanner(logFile)) {
+            while (fileReader.hasNextLine()) {
+                lastLine = fileReader.nextLine();
+            }
+        } catch (FileNotFoundException e) {
+            // call for an error message from UI here
+        }
+
+        // assert
+        Assert.assertEquals((formattedTime + " " + expectedLastLine), lastLine);
+    }
+
+
+
 }
