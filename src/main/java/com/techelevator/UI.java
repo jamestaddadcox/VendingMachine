@@ -42,23 +42,33 @@ public class UI {
         return userInput.nextLine();
     }
 
-    public String displayFeedMoney() {
-        int money;
+    public void displayFeedMoney() {
+        int money = 0;
         String moneyInput;
         do {
             System.out.println("Current money provided: " + priceConverter(inventory.getBalance()));
             System.out.println("Please enter in the dollar amount: ");
             moneyInput = getFeedMoneyInput();
-            money = Integer.parseInt(moneyInput);
-            if (money < 0) {
-                System.out.println("Please enter a positive amount");
+            if (moneyInput.contains(".")) {
+                String moneyAsWhole = moneyInput.replace(".", "");
+                int moneyInputInt = Integer.parseInt(moneyAsWhole); //converting money as a whole into an integer
+                inventory.addMoneyToBalance(moneyInputInt); //adding int money to the current balance
+
+            } else {
+                int moneyInputInt = Integer.parseInt(moneyInput);
+                inventory.addMoneyToBalance(moneyInputInt * 100);
+
+                money = Integer.parseInt(moneyInput);
+                if (money < 0) {
+                    System.out.println("Please enter a positive amount");
+
+                }
+
 
             }
-        } while (money < 0) ;
-        return moneyInput;
+        } while (money < 0);
 
     }
-
     public String getFeedMoneyInput() {
         return userInput.nextLine();
     }
