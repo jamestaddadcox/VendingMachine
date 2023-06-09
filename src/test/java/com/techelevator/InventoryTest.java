@@ -51,6 +51,61 @@ public class InventoryTest {
     }
 
     @Test
-    public void makePurchase_adds_log_
+    public void makePurchase_decreases_balance_returns_true_on_successful_purchase() {
+        // arrange
+        sut.addMoneyToBalance(1000);
+        String location = "A1";     // don't love this. feels sloppy. give this some thought.
+        int expectedResultingBalance = 695;
+
+        // act
+        boolean wasPurchased = sut.makePurchase(location);
+
+        // assert
+        Assert.assertEquals(expectedResultingBalance, sut.getBalance());
+        Assert.assertTrue(wasPurchased);
+    }
+
+    @Test
+    public void makePurchase_with_insufficient_balance_returns_false_no_change_in_balance() {
+        // arrange
+        sut.addMoneyToBalance(300);
+        String location = "A1";     // don't love this. feels sloppy. give this some thought.
+        int expectedResultingBalance = 300;
+
+        // act
+        boolean wasPurchased = sut.makePurchase(location);
+
+        // assert
+        Assert.assertEquals(expectedResultingBalance, sut.getBalance());
+        Assert.assertFalse(wasPurchased);
+    }
+
+    @Test
+    public void makePurchase_with_insufficient_quantity_returns_false_no_change_in_balance() {
+        // arrange
+        sut.addMoneyToBalance(1000);
+        sut.getItem("A1").setQuantity(0);
+        String location = "A1";     // don't love this. feels sloppy. give this some thought.
+        int expectedResultingBalance = 1000;
+
+        // act
+        boolean wasPurchased = sut.makePurchase(location);
+
+        // assert
+        Assert.assertEquals(expectedResultingBalance, sut.getBalance());
+        Assert.assertFalse(wasPurchased);
+    }
+
+    @Test
+    public void makePurchase_writes_to_log_on_success() {
+        // arrange
+
+
+        // act
+        sut.makePurchase(location);
+
+        // assert
+    }
+
 
 }
