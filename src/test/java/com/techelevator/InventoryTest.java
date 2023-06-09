@@ -4,6 +4,14 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
+
 public class InventoryTest {
 
     private String INVENTORY_FILE_NAME = "vendingmachine.csv";
@@ -99,13 +107,53 @@ public class InventoryTest {
     @Test
     public void makePurchase_writes_to_log_on_success() {
         // arrange
-
+        sut.addMoneyToBalance(1000);
+        String location = "A1";
+        String expectedLastLine = "Potato Crisps A1 $3.05 $6.95";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a"); // create date and time pattern
 
         // act
+        String formattedTime = LocalDateTime.now().format(formatter); // create a string for the current date and time using the pattern
         sut.makePurchase(location);
 
+        String lastLine = "";
+        File logFile = new File("Log.txt");
+        try (Scanner fileReader = new Scanner(logFile)) {
+            while (fileReader.hasNextLine()) {
+                lastLine = fileReader.nextLine();
+            }
+        } catch (FileNotFoundException e) {
+            // call for an error message from UI here
+        }
+
         // assert
+        Assert.assertEquals(lastLine, (formattedTime + " " + expectedLastLine));
     }
 
+    @Test
+    public void makePurchase_writes_to_log_on_failure() {  // keep checking this
+        // arrange
+        sut.addMoneyToBalance(300);
+        String location = "A1";
+        String expectedLastLine = "Transaction Cancelled: Insufficient Balance";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a"); // create date and time pattern
+
+        // act
+        String formattedTime = LocalDateTime.now().format(formatter); // create a string for the current date and time using the pattern
+        sut.makePurchase(location);
+
+        String lastLine = "";
+        File logFile = new File("Log.txt");
+        try (Scanner fileReader = new Scanner(logFile)) {
+            while (fileReader.hasNextLine()) {
+                lastLine = fileReader.nextLine();
+            }
+        } catch (FileNotFoundException e) {
+            // call for an error message from UI here
+        }
+
+        // assert
+        Assert.assertEquals(lastLine, (formattedTime + " " + expectedLastLine));
+    }
 
 }
