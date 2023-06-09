@@ -66,7 +66,7 @@ public class Inventory {
     }
 
     public int getBalance() {
-        return balance / 100;
+        return balance;
     }
 
     public int returnChange() {

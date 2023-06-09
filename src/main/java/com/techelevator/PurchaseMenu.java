@@ -1,13 +1,16 @@
 package com.techelevator;
 
 
+import java.text.NumberFormat;
+
 public class PurchaseMenu {
     Inventory inventory;
-
-    UI ui = new UI();
+    UI ui;
 
     public PurchaseMenu(Inventory inventory) {
         this.inventory = inventory;
+        ui = new UI(inventory);
+
     }
 
     public void runPurchaseMenu() {
@@ -21,15 +24,15 @@ public class PurchaseMenu {
             if (purchaseMenuInput.equals("1")) {
 
                 ui.displayFeedMoney();
-                String feedMoneyInput = ui.getFeedMoneyInput();
+                String feedMoneyInput = ui.getFeedMoneyInput(); //userinput stored as feedMoneyinput
                 if (feedMoneyInput.contains(".")) {
                     String moneyAsWhole = feedMoneyInput.replace(".", "");
-                    int moneyInput = Integer.parseInt(moneyAsWhole);
-                    inventory.addMoneyToBalance(moneyInput);
+                    int moneyInput = Integer.parseInt(moneyAsWhole); //converting money as a whole into an integer
+                   inventory.addMoneyToBalance(moneyInput); //adding int money to the current balance
 
                 } else {
                     int moneyInput = Integer.parseInt(feedMoneyInput);
-                    inventory.addMoneyToBalance(moneyInput * 100);
+                    inventory.addMoneyToBalance(moneyInput);
 
 
                     //System.out.println("New balance is: " + inventory.getBalance());
@@ -48,8 +51,10 @@ public class PurchaseMenu {
 
             }
 
-        } while (!purchaseMenuInput.equals(3));
+        } while (!purchaseMenuInput.equals("3"));
     }
+
+
 }
 
 
