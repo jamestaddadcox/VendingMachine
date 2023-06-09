@@ -47,7 +47,7 @@ public class Inventory {
         return true;
     }
 
-    public boolean makePurchase(String location) {
+    public boolean makePurchase(String location) {                                                                                       
         if (balance < inventoryMap.get(location).getPrice()) {
             addLogEntry("Transaction Cancelled: Insufficient Balance");
             return false;
