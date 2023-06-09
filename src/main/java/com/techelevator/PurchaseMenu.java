@@ -32,7 +32,7 @@ public class PurchaseMenu {
 
                 } else {
                     int moneyInput = Integer.parseInt(feedMoneyInput);
-                    inventory.addMoneyToBalance(moneyInput);
+                    inventory.addMoneyToBalance(moneyInput * 100);
 
 
                     //System.out.println("New balance is: " + inventory.getBalance());
