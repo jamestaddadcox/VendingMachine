@@ -5,12 +5,14 @@ import java.util.Objects;
 
 public class MainMenu {
     private Inventory inventory;
-    private UI ui = new UI();
-    private PurchaseMenu purchaseMenu = new PurchaseMenu(inventory);
+    private UI ui;
+    private PurchaseMenu purchaseMenu;
 
 
     public MainMenu(Inventory inventory){
     this.inventory = inventory;
+    purchaseMenu = new PurchaseMenu(inventory);
+    ui = new UI(inventory);
 }
     public void runMainMenu() {
         String mainMenuInput;

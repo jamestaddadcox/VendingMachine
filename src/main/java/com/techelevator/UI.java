@@ -8,7 +8,9 @@ Inventory inventory = new Inventory();
     private Scanner userInput = new Scanner(System.in);
     String formattedAmount;// format amount as money
 
-
+public UI(Inventory inventory) {
+    this.inventory = inventory;
+}
 
     public void displayMainMenu() {
         System.out.println("Please choose from the following options: ");
@@ -53,16 +55,17 @@ Inventory inventory = new Inventory();
 
         for (String location : inventory.getInventoryMap().keySet()) {
             if (inventory.getInventoryMap().get(location).getQuantity() > 0) {
-                System.out.println(location + ", " + inventory.getInventoryMap().get(location).getName() + ", " + inventory.getInventoryMap().get(location).getPrice() + ", " + inventory.getInventoryMap().get(location).getQuantity());
+                System.out.println(location + ", " + inventory.getInventoryMap().get(location).getName() + ", " + priceConverter(inventory.getInventoryMap().get(location).getPrice()) + ", " + inventory.getInventoryMap().get(location).getQuantity());
             } else {
-                System.out.println(location + ", " + inventory.getInventoryMap().get(location).getName() + ", " + inventory.getInventoryMap().get(location).getPrice() + ", " + "OUT OF STOCK");
+                System.out.println(location + ", " + inventory.getInventoryMap().get(location).getName() + ", " + priceConverter(inventory.getInventoryMap().get(location).getPrice()) + ", " + "OUT OF STOCK");
             }
+        }
             System.out.println("Please select which item you would like to purchase: ");
             String locationNumber = userInput.nextLine();
 
             inventory.makePurchase(locationNumber);
 
-            System.out.println("Dispensing " + inventory.getInventoryMap().get(locationNumber));
+            System.out.println("Dispensing " + inventory.getInventoryMap().get(locationNumber).getName());
 
             if (inventory.getInventoryMap().get(locationNumber).getType().equals("Candy")) {
                 System.out.println("Munch Munch, Yum!");
@@ -75,7 +78,7 @@ Inventory inventory = new Inventory();
             }
 
         }
-    }
+
 
         public void change (int balance){
             int quarters = balance / 25;
@@ -96,6 +99,9 @@ Inventory inventory = new Inventory();
 
         }
 
-
+    public String priceConverter(int price) {
+        String formattedAmount = NumberFormat.getCurrencyInstance().format((double) price / 100);
+        return formattedAmount;
+    }
 
 }
