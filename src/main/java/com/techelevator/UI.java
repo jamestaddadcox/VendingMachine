@@ -43,10 +43,18 @@ public class UI {
     }
 
     public void displayFeedMoney() {
-        System.out.println("Current money provided: " + priceConverter(inventory.getBalance()));
-        System.out.println("Please enter in the dollar amount: ");
 
+        int money;
+        do {
+            System.out.println("Current money provided: " + priceConverter(inventory.getBalance()));
+            System.out.println("Please enter in the dollar amount: ");
 
+            money = Integer.parseInt(getFeedMoneyInput());
+            if (money < 0) {
+                System.out.println("Please enter a positive amount");
+
+            }
+        } while (money < 0) ;
     }
 
     public String getFeedMoneyInput() {
