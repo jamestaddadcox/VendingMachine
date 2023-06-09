@@ -63,39 +63,41 @@ public class UI {
                 System.out.println(location + ", " + inventory.getInventoryMap().get(location).getName() + ", " + priceConverter(inventory.getInventoryMap().get(location).getPrice()) + ", " + "OUT OF STOCK");
             }
         }
-        System.out.println("\nPlease select which item you would like to purchase: ");
+        String locationNumber;
+        do {
+            System.out.println("\nPlease select which item you would like to purchase: ");
 
-
-        String locationNumber = "";
-        try {
             locationNumber = userInput.nextLine().toUpperCase();
-        } catch (IllegalArgumentException e) {
-            System.out.println("Please enter a valid input");
-        }
+            if (!inventory.getInventoryMap().containsKey(locationNumber)) {
+                System.out.println("Please put in a valid input");
 
-        if (inventory.getBalance() < inventory.getInventoryMap().get(locationNumber).getPrice()) {
-            System.out.println("Insufficient funds. Please insert more money!");
-        }
-        else if (inventory.getInventoryMap().get(locationNumber).getQuantity() < 1) {
-            System.out.println("Item out of stock! Please choose another item.");
-        }
-        else {
-            inventory.makePurchase(locationNumber);
-            System.out.println("Dispensing " + inventory.getInventoryMap().get(locationNumber).getName());
+            }
+        } while (!inventory.getInventoryMap().containsKey(locationNumber));
 
-            if (inventory.getInventoryMap().get(locationNumber).getType().equals("Candy")) {
-                System.out.println("Munch Munch, Yum!");
-            } else if (inventory.getInventoryMap().get(locationNumber).getType().equals("Chip")) {
-                System.out.println("Crunch Crunch, Yum!");
-            } else if (inventory.getInventoryMap().get(locationNumber).getType().equals("Drink")) {
-                System.out.println("Glug Glug, Yum!");
-            } else if (inventory.getInventoryMap().get(locationNumber).getType().equals("Gum")) {
-                System.out.println("Chew Chew, Yum!");
+            if (inventory.getBalance() < inventory.getInventoryMap().get(locationNumber).getPrice()) {
+                System.out.println("Insufficient funds. Please insert more money!");
+            } else if (inventory.getInventoryMap().get(locationNumber).getQuantity() < 1) {
+                System.out.println("Item out of stock! Please choose another item.");
+            } else {
+                inventory.makePurchase(locationNumber);
+                System.out.println("Dispensing " + inventory.getInventoryMap().get(locationNumber).getName());
+
+                if (inventory.getInventoryMap().get(locationNumber).getType().equals("Candy")) {
+                    System.out.println("Munch Munch, Yum!");
+                } else if (inventory.getInventoryMap().get(locationNumber).getType().equals("Chip")) {
+                    System.out.println("Crunch Crunch, Yum!");
+                } else if (inventory.getInventoryMap().get(locationNumber).getType().equals("Drink")) {
+                    System.out.println("Glug Glug, Yum!");
+                } else if (inventory.getInventoryMap().get(locationNumber).getType().equals("Gum")) {
+                    System.out.println("Chew Chew, Yum!");
+                }
             }
 
-        }
+
 
     }
+
+
         public void change ( int balance){
             int quarters = balance / 25;
             balance %= 25;
