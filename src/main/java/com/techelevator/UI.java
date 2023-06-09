@@ -1,16 +1,20 @@
 package com.techelevator;
 
+import java.io.IOException;
 import java.text.NumberFormat;
+import java.util.IllegalFormatException;
+import java.util.InputMismatchException;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class UI {
-Inventory inventory = new Inventory();
+    Inventory inventory = new Inventory();
     private Scanner userInput = new Scanner(System.in);
     String formattedAmount;// format amount as money
 
-public UI(Inventory inventory) {
-    this.inventory = inventory;
-}
+    public UI(Inventory inventory) {
+        this.inventory = inventory;
+    }
 
     public void displayMainMenu() {
         System.out.println("Please choose from the following options: ");
@@ -58,11 +62,24 @@ public UI(Inventory inventory) {
                 System.out.println(location + ", " + inventory.getInventoryMap().get(location).getName() + ", " + priceConverter(inventory.getInventoryMap().get(location).getPrice()) + ", " + "OUT OF STOCK");
             }
         }
-            System.out.println("Please select which item you would like to purchase: ");
-            String locationNumber = userInput.nextLine();
+        System.out.println("\nPlease select which item you would like to purchase: ");
 
+
+        String locationNumber = "";
+        try {
+            locationNumber = userInput.nextLine().toUpperCase();
+        } catch (InputMismatchException e) {
+            System.out.println("Please enter a valid input");
+        }
+
+        if (inventory.getBalance() < inventory.getInventoryMap().get(locationNumber).getPrice()) {
+            System.out.println("Insufficient funds. Please insert more money!");
+        }
+        else if (inventory.getInventoryMap().get(locationNumber).getQuantity() < 1) {
+            System.out.println("Item out of stock! Please choose another item.");
+        }
+        else {
             inventory.makePurchase(locationNumber);
-
             System.out.println("Dispensing " + inventory.getInventoryMap().get(locationNumber).getName());
 
             if (inventory.getInventoryMap().get(locationNumber).getType().equals("Candy")) {
@@ -77,8 +94,8 @@ public UI(Inventory inventory) {
 
         }
 
-
-        public void change (int balance){
+    }
+        public void change ( int balance){
             int quarters = balance / 25;
             balance %= 25;
 
@@ -91,15 +108,16 @@ public UI(Inventory inventory) {
 
 
             System.out.println("Your balance of " + priceConverter(inventory.getBalance()) + " will be returned as following: ");
-            System.out.println("Quarters: " + quarters + ", Dimes: " + dimes + ", Nickles: " + nickles );
+            System.out.println("Quarters: " + quarters + ", Dimes: " + dimes + ", Nickles: " + nickles);
             System.out.println("Thank you for your purchase!");
-
-
         }
 
-    public String priceConverter(int price) {
-        String formattedAmount = NumberFormat.getCurrencyInstance().format((double) price / 100);
-        return formattedAmount;
-    }
 
-}
+
+        public String priceConverter ( int price){
+            String formattedAmount = NumberFormat.getCurrencyInstance().format((double) price / 100);
+            return formattedAmount;
+        }
+
+
+    }
