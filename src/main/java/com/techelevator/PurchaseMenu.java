@@ -23,8 +23,7 @@ public class PurchaseMenu {
 
             if (purchaseMenuInput.equals("1")) {
 
-                ui.displayFeedMoney();
-                String feedMoneyInput = ui.getFeedMoneyInput(); //userinput stored as feedMoneyinput
+                String feedMoneyInput = ui.displayFeedMoney();
                 if (feedMoneyInput.contains(".")) {
                     String moneyAsWhole = feedMoneyInput.replace(".", "");
                     int moneyInput = Integer.parseInt(moneyAsWhole); //converting money as a whole into an integer
