@@ -1,6 +1,7 @@
 package com.techelevator;
 
 import java.io.IOException;
+import java.security.KeyException;
 import java.text.NumberFormat;
 import java.util.IllegalFormatException;
 import java.util.InputMismatchException;
@@ -68,7 +69,7 @@ public class UI {
         String locationNumber = "";
         try {
             locationNumber = userInput.nextLine().toUpperCase();
-        } catch (InputMismatchException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("Please enter a valid input");
         }
 
