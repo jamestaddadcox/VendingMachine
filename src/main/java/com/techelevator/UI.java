@@ -25,8 +25,7 @@ public UI(Inventory inventory) {
 
     public void displayPurchaseMenu() {
 
-        formattedAmount = NumberFormat.getCurrencyInstance().format(inventory.getBalance());
-        System.out.println("Current money provided: " + formattedAmount);
+        System.out.println("Current money provided: " + priceConverter(inventory.getBalance()));
         System.out.println("\nPlease choose from the following options: ");
         System.out.println("\n(1) Feed Money");
         System.out.println("(2) Select Product");
@@ -39,8 +38,7 @@ public UI(Inventory inventory) {
     }
 
     public void displayFeedMoney() {
-        formattedAmount = NumberFormat.getCurrencyInstance().format(inventory.getBalance());
-        System.out.println("Current money provided: " + formattedAmount);
+        System.out.println("Current money provided: " + priceConverter(inventory.getBalance()));
         System.out.println("Please enter in the dollar amount: ");
 
 
@@ -91,8 +89,8 @@ public UI(Inventory inventory) {
 
             int nickles = balance / 5;
 
-            String formattedAmount = NumberFormat.getCurrencyInstance().format(inventory.getBalance());
-            System.out.println("Your balance of " + formattedAmount + " will be returned as following: ");
+
+            System.out.println("Your balance of " + priceConverter(inventory.getBalance()) + " will be returned as following: ");
             System.out.println("Quarters: " + quarters + ", Dimes: " + dimes + ", Nickles: " + nickles );
             System.out.println("Thank you for your purchase!");
 
@@ -100,7 +98,7 @@ public UI(Inventory inventory) {
         }
 
     public String priceConverter(int price) {
-        String formattedAmount = NumberFormat.getCurrencyInstance().format(price);
+        String formattedAmount = NumberFormat.getCurrencyInstance().format((double) price / 100);
         return formattedAmount;
     }
 
