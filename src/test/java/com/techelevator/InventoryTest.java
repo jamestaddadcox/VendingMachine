@@ -127,7 +127,7 @@ public class InventoryTest {
         }
 
         // assert
-        Assert.assertEquals(lastLine, (formattedTime + " " + expectedLastLine));
+        Assert.assertEquals((formattedTime + " " + expectedLastLine), lastLine);
     }
 
     @Test
@@ -153,7 +153,7 @@ public class InventoryTest {
         }
 
         // assert
-        Assert.assertEquals(lastLine, (formattedTime + " " + expectedLastLine));
+        Assert.assertEquals((formattedTime + " " + expectedLastLine), lastLine);
     }
 
 }
