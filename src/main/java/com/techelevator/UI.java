@@ -43,32 +43,42 @@ public class UI {
     }
 
     public void displayFeedMoney() {
-        int money = 0;
-        String moneyInput;
-        do {
-            System.out.println("Current money provided: " + priceConverter(inventory.getBalance()));
-            System.out.println("Please enter in the dollar amount: ");
-            moneyInput = getFeedMoneyInput();
-            if (moneyInput.contains(".")) {
-                String moneyAsWhole = moneyInput.replace(".", "");
-                int moneyInputInt = Integer.parseInt(moneyAsWhole); //converting money as a whole into an integer
-                inventory.addMoneyToBalance(moneyInputInt); //adding int money to the current balance
+        int money = -1;
+        String moneyInput = "";
+        int moneyInputInt = -1;
 
-            } else {
-                int moneyInputInt = Integer.parseInt(moneyInput);
-                inventory.addMoneyToBalance(moneyInputInt * 100);
 
-                money = Integer.parseInt(moneyInput);
-                if (money < 0) {
-                    System.out.println("Please enter a positive amount");
+            do {
 
+                   System.out.println("Current money provided: " + priceConverter(inventory.getBalance()));
+                   System.out.println("Please enter in the dollar amount: ");
+                   moneyInput = getFeedMoneyInput();
+
+                try {
+                if (moneyInput.contains(".")) {
+                    String moneyAsWhole = moneyInput.replace(".", "");
+                    moneyInputInt = Integer.parseInt(moneyAsWhole); //converting money as a whole into an integer
+                    inventory.addMoneyToBalance(moneyInputInt); //adding int money to the current balance
+
+                } else {
+                    moneyInputInt = Integer.parseInt(moneyInput);
+                    inventory.addMoneyToBalance(moneyInputInt * 100);
                 }
+                } catch (NumberFormatException e ) {
+                    System.out.println("Please enter a valid dollar amount!");
+                    }
+                    }while (moneyInputInt == -1) ;
+                    money = Integer.parseInt(String.valueOf(moneyInputInt));
+                    if (money < 0) {
+                        System.out.println("Please enter a positive amount");
+
+                    }
 
 
-            }
-        } while (money < 0);
 
     }
+
+
     public String getFeedMoneyInput() {
         return userInput.nextLine();
     }
