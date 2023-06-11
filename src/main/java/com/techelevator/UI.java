@@ -43,8 +43,7 @@ public class UI {
     }
 
     public void displayFeedMoney() {
-        int money = -1;
-        String moneyInput = "";
+        String moneyInput;
         int moneyInputInt = -1;
 
 
@@ -68,8 +67,7 @@ public class UI {
                     System.out.println("Please enter a valid dollar amount!");
                     }
                     }while (moneyInputInt == -1) ;
-                    money = Integer.parseInt(String.valueOf(moneyInputInt));
-                    if (money < 0) {
+                    if (moneyInputInt < 0) {
                         System.out.println("Please enter a positive amount");
 
                     }
